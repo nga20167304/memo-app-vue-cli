@@ -4,6 +4,7 @@ import MemoList from './components/MemoList.vue'
 import Memo from './components/Memo.vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -45,7 +46,7 @@ const store = new Vuex.Store({
       return state.memos.find(memo => memo.id === id)
     },
     getMaxId: state => {
-      return Math.max.apply(Math, state.memos.map(memo => memo.id)) + 1
+      return Math.max(...state.memos.map(memo => memo.id)) + 1
     }
   },
   mutations: {
@@ -63,7 +64,8 @@ const store = new Vuex.Store({
     deleteMemo(state, payload) {
       state.memos = state.memos.filter(memo => memo.id !== payload.id)
     }
-  }
+  },
+  plugins: [createPersistedState()]
 })
 
 new Vue({
