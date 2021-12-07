@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
+import { uuid } from 'vue-uuid';
 
 export default {
   name: 'Memo',
@@ -28,9 +29,6 @@ export default {
     return {
       memo: this.defaultMemo()
     }
-  },
-  computed: {
-    ...mapGetters(['getMaxId'])
   },
   created: function () {
   },
@@ -52,7 +50,7 @@ export default {
         this.error = '内容は必須です'
         return
       }
-      this.memo.id = this.getMaxId
+      this.memo.id = uuid.v4()
       this.addMemo(this.memo)
       alert('新しいメモが作成されました。')
       this.$router.push('/')

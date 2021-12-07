@@ -5,7 +5,6 @@ import Memo from './components/Memo.vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate';
-import { uuid } from 'vue-uuid';
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -25,16 +24,18 @@ const router = new VueRouter({
 
 const store = new Vuex.Store({
   state: {
-    id: uuid.v4(),
     memos: [{
+        id: 1,
         title: 'メモ1',
         content: 'メモ1の内容'
       },
       {
+        id: 2,
         title: 'メモ2',
         content: 'メモ2の内容'
       },
       {
+        id: 3,
         title: 'メモ3',
         content: 'メモ3の内容'
       }
@@ -43,9 +44,6 @@ const store = new Vuex.Store({
   getters: {
     getMemoById: (state) => (id) => {
       return state.memos.find(memo => memo.id === id)
-    },
-    getMaxId: state => {
-      return Math.max(...state.memos.map(memo => memo.id)) + 1
     }
   },
   mutations: {
