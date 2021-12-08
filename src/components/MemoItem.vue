@@ -5,6 +5,9 @@
         <input v-model="title" v-if="isEdit"/>
         <span v-else>{{ title }}</span>
       </div>
+      <div class="memo-content">
+        <input v-model="content" v-if="isEdit"/>
+      </div>
       <div class="memo-action">
         <button v-if="!isEdit" @click="showDetail">{{ textDetail }}</button>
         <button @click="handleEdit">{{ textEdit }}</button>
@@ -26,6 +29,7 @@ export default {
       isShow: false,
       isEdit: false,
       title: this.memo.title,
+      content: this.memo.content
     }
   },
   props: {
@@ -52,7 +56,7 @@ export default {
       }
     },
     handleSave: function() {
-      this.editMemo({...this.memo, title:this.title});
+      this.editMemo({...this.memo, title:this.title, content: this.content});
       this.isEdit = false;
     },
     handleDelete: function() {
